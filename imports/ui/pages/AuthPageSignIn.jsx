@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthPage from './AuthPage.jsx';
+import AccountsUIWrapper from '../components/AccountsUIWrapper.jsx';
 import { Link } from 'react-router';
 
 export default class SignInPage extends React.Component {
@@ -40,12 +41,12 @@ export default class SignInPage extends React.Component {
     const { errors } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
-
     const content = (
       <div className="wrapper-auth">
         <h1 className="title-auth">Sign In.</h1>
-        <p className="subtitle-auth" >Signing in allows you to view private lists</p>
-        <form onSubmit={this.onSubmit.bind(this)}>
+        <p className="subtitle-auth" >Good idea to sign in</p>
+        <AccountsUIWrapper location={this.props.location}/>
+        {/*<form onSubmit={this.onSubmit.bind(this)}>
           <div className="list-errors">
             {errorMessages.map(msg => (
               <div className="list-item" key={msg}>{msg}</div>
@@ -60,7 +61,8 @@ export default class SignInPage extends React.Component {
             <span className="icon-lock" title="Password"></span>
           </div>
           <button type="submit" className="btn-primary">Sign in</button>
-        </form>
+        </form>*/}
+
       </div>
     );
 
@@ -69,6 +71,16 @@ export default class SignInPage extends React.Component {
     return <AuthPage content={content} link={link}/>;
   }
 }
+
+SignInPage.propTypes = {
+  user: React.PropTypes.object,      // current meteor user
+  connected: React.PropTypes.bool,   // server connection status
+  loading: React.PropTypes.bool,     // subscription status
+  menuOpen: React.PropTypes.bool,    // is side menu open?
+  lists: React.PropTypes.array,      // all lists visible to the current user
+  children: React.PropTypes.element, // matched child route component
+  location: React.PropTypes.object   // current router location
+};
 
 SignInPage.contextTypes = {
   router: React.PropTypes.object

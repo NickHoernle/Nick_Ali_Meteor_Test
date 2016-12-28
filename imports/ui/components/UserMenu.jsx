@@ -19,8 +19,9 @@ export default class UserMenu extends React.Component {
   renderLoggedIn() {
     const { open } = this.state;
     const { user, logout } = this.props;
-    const email = user.emails[0].address;
-    const emailLocalPart = email.substring(0, email.indexOf('@'));
+    const name = user.profile.name
+    const email = user.services.facebook.email;
+    const emailLocalPart = `${user.services.facebook.first_name} ${user.services.facebook.last_name}`
 
     return (
       <div className="user-menu vertical">

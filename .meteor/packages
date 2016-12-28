@@ -27,3 +27,6 @@ less
 check
 react-meteor-data
 static-html
+accounts-facebook
+accounts-ui
+reactrouter:react-router

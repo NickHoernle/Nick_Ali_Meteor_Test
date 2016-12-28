@@ -5,9 +5,12 @@ import App from '../layouts/App.jsx';
 export default createContainer(() => {
   const publicHandle = Meteor.subscribe('Lists.public');
   const privateHandle = Meteor.subscribe('Lists.private');
+  const usersHandle = Meteor.subscribe('Users');
+  const userLoading = Meteor.user() && Meteor.user().services;
   return {
     user: Meteor.user(),
-    loading: !(publicHandle.ready() && privateHandle.ready()),
+    loading: !(publicHandle.ready()
+                && privateHandle.ready()),
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     lists: Lists.find({$or: [

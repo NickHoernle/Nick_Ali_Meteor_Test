@@ -1,8 +1,60 @@
 import { Lists } from '../../api/lists/lists.js';
 import { Todos } from '../../api/todos/todos.js';
+import { Transactions } from '../../api/transactions/transactions.js';
 
 // if the database is empty on server start, create some sample data.
 Meteor.startup(() => {
+  if (Transactions.find().count() === 0) {
+    console.log('working here')
+    const data = [
+      {
+        amount: 20,
+        fromUserId: 'u2Ti4634Wf3pwFXTa',
+        fromUserName: 'Nick',
+        toUserId: 'WGc7oxRfMsYBAZEsj',
+        toUserName: 'Ali'
+      },
+      {
+        amount: 30,
+        toUserName: 'Dave',
+        fromUserName: 'Ali',
+        fromUserId: 'u2Ti4634Wf3pwFXTa',
+        toUserId: 'WGc7oxRfMsYBAZEsj',
+      },
+      {
+        amount: 40,
+        toUserName: 'Doug',
+        fromUserName: 'Nick',
+        fromUserId: 'u2Ti4634Wf3pwFXTa',
+        toUserId: 'WGc7oxRfMsYBAZEsj',
+      },
+      {
+        amount: 50,
+        fromUserId: 'u2Ti4634Wf3pwFXTa',
+        toUserName: 'Ali',
+        fromUserName: 'Dave',
+        toUserId: 'WGc7oxRfMsYBAZEsj',
+      },
+    ];
+
+    let timestamp = (new Date()).getTime();
+
+    data.forEach((transaction) => {
+      Transactions.insert({
+        createdAt: new Date(timestamp),
+        fromUserId: transaction.fromUserId,
+        toUserId: transaction.toUserId,
+        fromUserName: transaction.fromUserName,
+        toUserName: transaction.toUserName,
+        amount: transaction.amount,
+        timestamp: timestamp
+      });
+      timestamp += 1; // ensure unique timestamp.
+    });
+  }
+
+  // We'll delete this rubbish once we totally remove the lists
+  // stuff
   if (Lists.find().count() === 0) {
     const data = [
       {

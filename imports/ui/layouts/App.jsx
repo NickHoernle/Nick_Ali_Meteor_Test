@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Lists } from '../../api/lists/lists.js';
+// import { Transactions } from '../../api/transitions/transitions.js';
 import UserMenu from '../components/UserMenu.jsx';
 import ListList from '../components/ListList.jsx';
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
+import { Link } from 'react-router';
 
 const CONNECTION_ISSUE_TIMEOUT = 5000;
 
@@ -70,8 +72,40 @@ export default class App extends React.Component {
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <section id="menu">
-          <UserMenu user={user} logout={this.logout.bind(this)}/>
-          <ListList lists={lists}/>
+          {loading
+              ? <Loading key="loading"/>
+              : <UserMenu user={user} logout={this.logout.bind(this)}/>}
+          <div className="list-todos">
+            <Link
+              to='/transaction'
+              title='Transaction History'
+              className="list-todo"
+              activeClassName="active">
+                Transaction History
+            </Link>
+            <Link
+              to='/transaction/new'
+              title='New Transaction'
+              className="list-todo"
+              activeClassName="active">
+                New Transaction
+            </Link>
+            <Link
+              to='/friends_list'
+              title='Friends List'
+              className="list-todo"
+              activeClassName="active">
+                Friends List
+            </Link>
+            <Link
+              to='/settings'
+              title='Setting'
+              className="list-todo"
+              activeClassName="active">
+                Settings
+            </Link>
+          </div>
+          {/*<ListList lists={lists}/>*/}
         </section>
         {showConnectionIssue && !connected
           ? <ConnectionNotification/>

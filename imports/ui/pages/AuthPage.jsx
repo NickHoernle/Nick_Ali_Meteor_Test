@@ -20,3 +20,11 @@ AuthPage.propTypes = {
 };
 
 export default AuthPage;
+
+AuthPage.propTypes = {
+ location: React.PropTypes.object   // current router location
+};
+
+AuthPage.contextTypes = {
+  router: React.PropTypes.object
+};
