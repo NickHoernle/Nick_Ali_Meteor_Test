@@ -1,6 +1,8 @@
 import React from 'react';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
+import { Transactions } from '../../../imports/api/transactions/transactions.js'
+import { insert } from '../../api/transactions/methods.js';
 
 export default class TransactionNewPage extends React.Component {
   constructor(props) {
@@ -13,6 +15,52 @@ export default class TransactionNewPage extends React.Component {
   //   });
   // }
 
+
+
+  onSubmit(event){
+    //console.log(event)
+    event.preventDefault();
+    //debugger
+    const amount = this.refs.amount.value;
+    const personPaid = this.refs.person.value;
+    const errors = {};
+    // console.log(event)
+    const toUserId = 'u2Ti4634Wf3pwFXTa';
+    const toUserName = 'Nick';
+    /*
+    if (!amount) {
+      errors.amount = 'Amount required';
+    }
+
+    if (!personPaid) {
+      errors.person = 'Receiver required';
+    }*/
+
+    insert.call({
+      fromUserId: Meteor.userId(),
+      toUserId: toUserId,
+      fromUserName: Meteor.user().profile.name,
+      toUserName: toUserName,
+      amount: amount
+    }, (err) => {
+      console.log('error', err)
+    });
+
+    // this.setState({ errors });
+    // if (Object.keys(errors).length) {
+    //   return;
+    // }
+
+    // Meteor.newTransactionWithAmount(amount, person, err => {
+    //   if (err) {
+    //     this.setState({
+    //       errors: { 'none': err.reason }
+    //     });
+    //   }
+    //   this.context.router.push('/');
+    // });
+  }
+
   render() {
     console.log('in transaction new page')
     // const { transactionExists, transaction, loading } = this.props;
@@ -21,13 +69,22 @@ export default class TransactionNewPage extends React.Component {
     //   return <NotFoundPage/>;
     // }
     // debugger
+
     return (
-      <div className="page lists-show">
-        <Message
-          title="A transaction"
-          subtitle="A transaction"/>
-        <div className="content-scrollable list-items">
-        </div>
+      <div className="page-new-transaction">
+        <h1>New Transaction</h1>
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <div className='new-transaction-form'>
+            <input type="amount" name="amount" ref="amount" placeholder="Amount to pay"/>
+
+          </div>
+          <div className='person'>
+            <input type="person" name="person" ref="person" placeholder="Person to pay"/>
+
+          </div>
+          <button type="submit" className="btn-primary">Pay</button>
+        </form>
+
       </div>
     );
   }

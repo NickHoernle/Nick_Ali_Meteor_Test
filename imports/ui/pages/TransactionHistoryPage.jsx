@@ -34,7 +34,7 @@ export default class TransactionHistoryPage extends React.Component {
 
   render() {
     const { userExists, user, loading, transactions } = this.props;
-    // debugger
+    console.log(user)
     if (!userExists) {
       return <NotFoundPage/>;
     }

@@ -4,14 +4,24 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { Transactions } from './transactions.js';
 
 const TRANSACTION_ID_ONLY = new SimpleSchema({
+  fromUserId: { type: String },
   transactionId: { type: String }
 }).validator();
 
 export const insert = new ValidatedMethod({
   name: 'Transactions.methods.insert',
-  validate: new SimpleSchema({}).validator(),
-  run() {
-    return Transactions.insert({});
+  // validate: new SimpleSchema({}).validator(),
+  validate: null,
+  run({ fromUserId, toUserId, fromUserName, toUserName, amount }) {
+    transact = {
+      fromUserId: fromUserId,
+      toUserId: toUserId,
+      fromUserName: fromUserName,
+      toUserName: toUserName,
+      amount: amount,
+      timestamp: (new Date()).getTime()
+    }
+    return Transactions.insert(transact);
   }
 });
 
