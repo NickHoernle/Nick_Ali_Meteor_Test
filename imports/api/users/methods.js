@@ -24,7 +24,7 @@ export const debitBalance = new ValidatedMethod({
     }
 
     const balance = Meteor.user().profile.account_balance - amount
-    Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance': balance}});
+    Meteor.users.update({_id: userId}, {$set:{'profile.account_balance': balance}});
   }
 });
 
@@ -35,14 +35,8 @@ export const creditBalance = new ValidatedMethod({
     amount: { type: Number }
   }).validator(),
   run({ userId, amount }) {
-    const user = Meteor.user()
-
-    // Initialise the account amount to 1000 for testing purposes
-    if(!user.profile.account_balance){
-      Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance':1000}});
-    }
-
-    const balance = user.profile.balance + balance
-    Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance':balance}});
+    const balance = Meteor.users.findOne({_id: userId}).profile.account_balance + amount
+    console.log('Crediting balance', balance)
+    Meteor.users.update({_id: userId}, {$set:{'profile.account_balance': balance}});
   }
 });

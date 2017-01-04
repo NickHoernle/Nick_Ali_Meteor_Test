@@ -4,6 +4,7 @@ import Message from '../components/Message.jsx';
 import { Transactions } from '../../../imports/api/transactions/transactions.js'
 import { insert } from '../../api/transactions/methods.js';
 import { debitBalance } from '../../api/users/methods.js';
+import { creditBalance } from '../../api/users/methods.js';
 
 export default class TransactionNewPage extends React.Component {
   constructor(props) {
@@ -36,24 +37,19 @@ export default class TransactionNewPage extends React.Component {
     if (!personPaid) {
       errors.person = 'Receiver required';
     }*/
-
-    insert.call({
-      fromUserId: Meteor.userId(),
-      toUserId: toUserId,
-      fromUserName: Meteor.user().profile.name,
-      toUserName: toUserName,
-      amount: amount
-    }, (err) => {
-      console.log('error', err)
-    });
-
-    // debugger
-    debitBalance.call({
-      userId: Meteor.userId(),
-      amount: parseFloat(amount)
-    }, (err) => {
-      console.log('error', err)
-    });
+    try{
+      insert.call({
+        fromUserId: Meteor.userId(),
+        toUserId: toUserId,
+        fromUserName: Meteor.user().profile.name,
+        toUserName: toUserName,
+        amount: parseFloat(amount)
+      }, (err) => {
+        console.log('error', err)
+      });
+    } catch(err) {
+      console.log('Something horrible happened')
+    }
 
     // this.setState({ errors });
     // if (Object.keys(errors).length) {
