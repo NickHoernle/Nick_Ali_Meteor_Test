@@ -3,6 +3,7 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import { Transactions } from '../../../imports/api/transactions/transactions.js'
 import { insert } from '../../api/transactions/methods.js';
+import { debitBalance } from '../../api/users/methods.js';
 
 export default class TransactionNewPage extends React.Component {
   constructor(props) {
@@ -42,6 +43,14 @@ export default class TransactionNewPage extends React.Component {
       fromUserName: Meteor.user().profile.name,
       toUserName: toUserName,
       amount: amount
+    }, (err) => {
+      console.log('error', err)
+    });
+
+    // debugger
+    debitBalance.call({
+      userId: Meteor.userId(),
+      amount: parseFloat(amount)
     }, (err) => {
       console.log('error', err)
     });
