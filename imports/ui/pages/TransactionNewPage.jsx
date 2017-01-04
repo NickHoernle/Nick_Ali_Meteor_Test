@@ -51,14 +51,7 @@ export default class TransactionNewPage extends React.Component {
     //   return;
     // }
 
-    // Meteor.newTransactionWithAmount(amount, person, err => {
-    //   if (err) {
-    //     this.setState({
-    //       errors: { 'none': err.reason }
-    //     });
-    //   }
-    //   this.context.router.push('/');
-    // });
+    this.context.router.push('/transaction');
   }
 
   render() {
@@ -93,4 +86,8 @@ TransactionNewPage.propTypes = {
   transaction: React.PropTypes.object,
   loading: React.PropTypes.bool,
   transactionExists: React.PropTypes.bool
+};
+
+TransactionNewPage.contextTypes = {
+  router: React.PropTypes.object
 };
