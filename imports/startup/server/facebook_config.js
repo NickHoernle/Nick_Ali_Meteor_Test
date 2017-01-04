@@ -1,3 +1,5 @@
+import { Accounts } from 'meteor/accounts-base'
+
 function Facebook(accessToken) {
     this.fb = Meteor.npmRequire('fbgraph');
     console.log(this.fb)
@@ -45,16 +47,27 @@ Meteor.methods({
 //     return Meteor.users.find({_id: this.userId});
 // });
 
-Meteor.publish("userData", function () {
-  if (this.userId) {
-    return Meteor.users.find(
-      {_id: this.userId},
-      {fields: {'services': 1, 'others': 1}});
-  } else {
-    this.ready();
-  }
-});
+if (Meteor.isServer) {
+  Accounts.onCreateUser(function(options, user) {
+    if (user.profile == undefined) user.profile = {};
+    _.extend(user.profile, { account_balance : 0 });
+  });
 
-Meteor.publish("getFriendsData", function(){
-  return Meteor.users.find({_id: this.userId});
-});
+  Meteor.publish("userData", function () {
+    if (this.userId) {
+      /*
+        Probably a better way to do this but we are setting the
+        initial balance of a user here.
+      */
+      return Meteor.users.find(
+        {_id: this.userId},
+        {fields: {'services': 1, 'others': 1, 'profile':1}});
+    } else {
+      this.ready();
+    }
+  });
+
+  Meteor.publish("getFriendsData", function(){
+    return Meteor.users.find({_id: this.userId});
+  });
+}

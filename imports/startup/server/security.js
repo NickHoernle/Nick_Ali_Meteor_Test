@@ -36,3 +36,9 @@ if (Meteor.isServer) {
     connectionId() { return true; }
   }, 2, 5000);
 }
+
+// Meteor.users.deny({
+//   update: function() {
+//     return true;
+//   }
+// });

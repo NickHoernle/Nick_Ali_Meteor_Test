@@ -68,7 +68,6 @@ export default class TransactionNewPage extends React.Component {
     // if (!transactionExists) {
     //   return <NotFoundPage/>;
     // }
-    // debugger
 
     return (
       <div className="page-new-transaction">

@@ -7,6 +7,7 @@ export default createContainer(() => {
   const privateHandle = Meteor.subscribe('Lists.private');
   const usersHandle = Meteor.subscribe('Users');
   const userLoading = Meteor.user() && Meteor.user().services;
+  // debugger
   return {
     user: Meteor.user(),
     loading: !(publicHandle.ready()
