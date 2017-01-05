@@ -1,10 +1,74 @@
 @import '{}/imports/ui/stylesheets/utils.less';
 
-.page-new-transaction {
-	padding-left: 25px;
-	width: 90%;
-	.content-scrollable {
-		background: @color-empty;
-		top: 5em !important;
+@media screen and (min-width: 40em) {
+	div{
+		width: inherit;
 	}
+
+	h3 {
+		text-align: center;
+	}
+	.page-new-transaction {
+		border-radius: 		5px;
+    background-color: #f2f2f2;
+    margin: 					10px;
+		padding: 					15px;
+		.content-scrollable {
+			background: @color-empty;
+			top: 5em !important;
+		}
+	}
+
+	label {
+		font-weight: bold;
+	}
+
+	.form-label{
+		text-align: 		right;
+		padding: 				10px;
+		display: 				table-cell;
+    vertical-align: top;
+	}
+
+	.form-input{
+		text-align: 		left;
+		padding:  			10px;
+		width:					58%;
+	}
+
+	input.input {
+		width:  				100%;
+		border: 				1px solid #ccc;
+		border-radius: 	4px;
+		padding: 				0px;
+	}
+
+	textarea {
+		width:  				100%;
+		border: 				1px solid #ccc;
+		border-radius: 	4px;
+		padding: 				0px;
+	}
+
+	.textarea {
+		position: absolute;
+	  left: 510px;
+	  width: 200px;
+	}
+  .wrapper_col {
+    padding-top:    10px;
+    padding-bottom: 10px;
+  }
+
+  .left {
+    padding-right:  10px;
+    width:          50%;
+    float:          left;
+  }
+
+  .right {
+    padding-left:   10px;
+    width:          50%;
+    float:          right;
+  }
 }

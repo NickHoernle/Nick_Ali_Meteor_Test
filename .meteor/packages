@@ -30,3 +30,4 @@ static-html
 accounts-facebook
 accounts-ui
 reactrouter:react-router
+twbs:bootstrap
