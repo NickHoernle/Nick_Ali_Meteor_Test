@@ -110,13 +110,13 @@ export default class UserHeader extends React.Component {
 
   renderDefaultHeader() {
     const { user } = this.props;
-    // console.log(user.services.facebook)
+    console.log(user)
     return (
       <div>
         <MobileMenu/>
         <h1 className="title-page">
           <span className="title-wrapper">{user.services.facebook.first_name} {user.services.facebook.last_name}</span>
-          <span className="title-wrapper">Account Balance: {user.account_balance||0}</span>
+          <span className="title-wrapper">Account Balance: {user.profile.account_balance||0}</span>
         </h1>
         {/*<div className="nav-group right">
                   <div className="nav-item options-mobile">

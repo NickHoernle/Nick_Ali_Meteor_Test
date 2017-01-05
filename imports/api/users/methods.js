@@ -11,18 +11,20 @@ export const debitBalance = new ValidatedMethod({
   run({ userId, amount }) {
     const user = Meteor.user()
 
-    if (!user.editableBy(this.userId)) {
-      throw new Meteor.Error('user.methods.debitBalance.unauthorized',
-        'Cannot debit different user');
-    }
+    // TODO: Some sort of fancy editing and checking logic here.
+
+    // if (!user.editableBy(this.userId)) {
+    //   throw new Meteor.Error('user.methods.debitBalance.unauthorized',
+    //     'Cannot debit different user');
+    // }
 
     // Initialise the account amount to 1000 for testing purposes
-    if(!user.profile.account_balance){
-      Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance':1000}});
+    if(!Meteor.user().profile.account_balance){
+      Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance': 1000}});
     }
 
-    const balance = user.profile.balance - balance
-    Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance':balance}});
+    const balance = Meteor.user().profile.account_balance - amount
+    Meteor.users.update({_id: userId}, {$set:{'profile.account_balance': balance}});
   }
 });
 
@@ -33,14 +35,8 @@ export const creditBalance = new ValidatedMethod({
     amount: { type: Number }
   }).validator(),
   run({ userId, amount }) {
-    const user = Meteor.user()
-
-    // Initialise the account amount to 1000 for testing purposes
-    if(!user.profile.account_balance){
-      Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance':1000}});
-    }
-
-    const balance = user.profile.balance + balance
-    Meteor.users.update({_id: user._id}, {$set:{'profile.account_balance':balance}});
+    const balance = Meteor.users.findOne({_id: userId}).profile.account_balance + amount
+    console.log('Crediting balance', balance)
+    Meteor.users.update({_id: userId}, {$set:{'profile.account_balance': balance}});
   }
 });

@@ -3,7 +3,8 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import { Transactions } from '../../../imports/api/transactions/transactions.js'
 import { insert } from '../../api/transactions/methods.js';
-// import { Button } from 'bootstrap';
+import { debitBalance } from '../../api/users/methods.js';
+import { creditBalance } from '../../api/users/methods.js';
 
 export default class TransactionNewPage extends React.Component {
   constructor(props) {
@@ -20,15 +21,19 @@ export default class TransactionNewPage extends React.Component {
     const toUserId = 'u2Ti4634Wf3pwFXTa';
     const toUserName = 'Nick';
 
-    insert.call({
-      fromUserId: Meteor.userId(),
-      toUserId: toUserId,
-      fromUserName: Meteor.user().profile.name,
-      toUserName: toUserName,
-      amount: amount
-    }, (err) => {
-      console.log('error', err)
-    });
+    try{
+      insert.call({
+        fromUserId: Meteor.userId(),
+        toUserId: toUserId,
+        fromUserName: Meteor.user().profile.name,
+        toUserName: toUserName,
+        amount: parseFloat(amount)
+      }, (err) => {
+        console.log('error', err)
+      });
+    } catch(err) {
+      console.log('Something horrible happened')
+    }
 
     this.context.router.push('/transaction');
   }

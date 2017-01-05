@@ -2,6 +2,8 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { Transactions } from './transactions.js';
+import { debitBalance } from '../users/methods.js';
+import { creditBalance } from '../users/methods.js';
 
 const TRANSACTION_ID_ONLY = new SimpleSchema({
   fromUserId: { type: String },
@@ -13,6 +15,22 @@ export const insert = new ValidatedMethod({
   // validate: new SimpleSchema({}).validator(),
   validate: null,
   run({ fromUserId, toUserId, fromUserName, toUserName, amount }) {
+          // debugger
+    debitBalance.call({
+      userId: fromUserId,
+      amount: amount
+    }, (err) => {
+      console.log('error', err)
+    });
+    console.log('debited')
+
+    creditBalance.call({
+      userId: toUserId,
+      amount: amount
+    }, (err) => {
+      console.log('error', err)
+    });
+
     transact = {
       fromUserId: fromUserId,
       toUserId: toUserId,
