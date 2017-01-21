@@ -49,6 +49,14 @@ export default class App extends React.Component {
     }
   }
 
+  loginWithFacebook(){
+    Meteor.loginWithFacebook({}, function(err){
+      if (err) {
+          throw new Meteor.Error("Facebook login failed");
+      }
+    });
+  }
+
   render() {
     const { showConnectionIssue } = this.state;
     const {
@@ -68,9 +76,9 @@ export default class App extends React.Component {
     const clonedChildren = children && React.cloneElement(children, {
       key: location.pathname
     });
-
-    return (
-      <div id="container" className={menuOpen ? 'menu-open' : ''}>
+    if (Meteor.user()) {
+      return(
+        <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <section id="menu">
           {loading
               ? <Loading key="loading"/>
@@ -121,8 +129,42 @@ export default class App extends React.Component {
               : clonedChildren}
           </ReactCSSTransitionGroup>
         </div>
-      </div>
-    );
+        </div>
+      );
+    }
+    else{
+      $('.carousel').carousel({
+            interval: 2500
+      })
+      return(
+        <div>
+          <div className="hero-unit">
+            <h1 id='linearBg2'>Micro Payments Application</h1>
+            <div id='login-buttons'>
+              <center>
+              <button className="btn btn-block btn-social btn-facebook" onClick={this.loginWithFacebook}>
+                <i className="fa fa-facebook" aria-hidden="true"></i> Login with Facebook
+              </button>
+              </center>
+            </div>
+            <div id="myCarousel" className="carousel slide">
+              <ol className="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+              <div className="carousel-inner">
+                <div className="active item"><center><h2>Some text describing what this does</h2></center></div>
+                <div className="item"><center><h2>Some more text describing what this does</h2></center></div>
+                <div className="item"><center><h2>Some more text describing what this does</h2></center></div>
+              </div>
+              <a className="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+              <a className="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
