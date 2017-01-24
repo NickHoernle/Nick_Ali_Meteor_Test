@@ -57,7 +57,7 @@ export const insertRequest = new ValidatedMethod({
       reason: reason
     }
 
-    return Transactions.insert(transact);
+    //return Transactions.insert(request);
   }});
 // export const makePrivate = new ValidatedMethod({
 //   name: 'Lists.methods.makePrivate',

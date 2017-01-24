@@ -80,3 +80,61 @@ body {
   // Hide overlay on desktop
   @media screen and (min-width: 40em) { display: none; }
 }
+
+// Facebook login button
+.btn.btn-block.btn-social.btn-facebook {
+  background: #f7f7f7;
+  color:      #3b5998;
+  margin:     auto;
+  max-width:  90%;
+  width:      auto;
+  &:hover {
+    background: #8b9dc3;
+    color:      black;
+    box-shadow: 1px 1px 1px 1px;
+  }
+}
+
+#login-buttons {
+  margin: 40px;
+  width:  100%;
+}
+
+#linearBg2 {
+  /*heading text*/
+  font-family: "Myriad", sans-serif;
+  padding: 10px;
+  padding-left: 20px;
+  text-transform: uppercase;
+  text-align: -webkit-left;
+
+  /* fallback */
+  background-color:   #c6c6c6;
+  background-repeat:  repeat-x;
+
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c6c6c6));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #c6c6c6, #ffffff);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #c6c6c6, #ffffff);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #c6c6c6, #ffffff);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #c6c6c6, #ffffff);
+}
+
+.carousel-inner.item {
+  min-width:  300px;
+  width:      auto;
+}
+
+.carousel-inner {
+  min-height: 200px;
+}
+
+

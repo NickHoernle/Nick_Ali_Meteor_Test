@@ -5,6 +5,7 @@ import { Transactions } from '../../../imports/api/transactions/transactions.js'
 import { insert } from '../../api/transactions/methods.js';
 import { debitBalance } from '../../api/users/methods.js';
 import { creditBalance } from '../../api/users/methods.js';
+import { insertRequest } from '../../api/transactions/methods.js';
 
 export default class TransactionNewPage extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ export default class TransactionNewPage extends React.Component {
     const description = 'birthday';
 
     try{
+      debugger
       insertRequest.call({
         fromUserId: Meteor.userId(),
         toUserId: toUserId,
