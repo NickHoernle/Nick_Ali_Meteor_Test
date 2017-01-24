@@ -43,6 +43,22 @@ export const insert = new ValidatedMethod({
   }
 });
 
+export const insertRequest = new ValidatedMethod({
+  name: 'Transactions.methods.insertRequest',
+  validate: null,
+  run({ fromUserId, toUserId, fromUserName, toUserName, amount, reason }) {
+    request = {
+      fromUserId: fromUserId,
+      toUserId: toUserId,
+      fromUserName: fromUserName,
+      toUserName: toUserName,
+      amount: amount,
+      timestamp: (new Date()).getTime(),
+      reason: reason
+    }
+
+    return Transactions.insert(transact);
+  }});
 // export const makePrivate = new ValidatedMethod({
 //   name: 'Lists.methods.makePrivate',
 //   validate: LIST_ID_ONLY,

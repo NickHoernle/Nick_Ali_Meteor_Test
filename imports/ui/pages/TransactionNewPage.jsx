@@ -20,6 +20,7 @@ export default class TransactionNewPage extends React.Component {
     const errors = {};
     const toUserId = 'u2Ti4634Wf3pwFXTa';
     const toUserName = 'Nick';
+    const description = 'birthday';
 
     try{
       insert.call({
@@ -46,6 +47,22 @@ export default class TransactionNewPage extends React.Component {
     const errors = {};
     const toUserId = 'u2Ti4634Wf3pwFXTa';
     const toUserName = 'Nick';
+    const description = 'birthday';
+
+    try{
+      insertRequest.call({
+        fromUserId: Meteor.userId(),
+        toUserId: toUserId,
+        fromUserName: Meteor.user().profile.name,
+        toUserName: toUserName,
+        amount: parseFloat(amount),
+        reason: description
+      }, (err) => {
+        console.log('error', err)
+      });
+    } catch(err) {
+      console.log('Something horrible happened')
+    }
   }
 
   render() {
