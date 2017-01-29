@@ -27,7 +27,10 @@ export default class TransactionNewPage extends React.Component {
       toUserName: toUserName,
       amount: amount
     }, (err) => {
-      console.log('error', err)
+      if (err) {
+        router.push('/');
+        alert('Could not complete transaction.');
+      }
     });
 
     this.context.router.push('/transaction');
