@@ -29,12 +29,15 @@ export default class TransactionNewPage extends React.Component {
         toUserId: toUserId,
         fromUserName: Meteor.user().profile.name,
         toUserName: toUserName,
-        amount: parseFloat(amount)
+        amount: amount
       }, (err) => {
-        console.log('error', err)
+        if (err) {
+          router.push('/');
+          alert('Could not complete transaction.');
+        }
       });
     } catch(err) {
-      console.log('Something horrible happened')
+      console.log('Oh dear')
     }
 
     this.context.router.push('/transaction');
