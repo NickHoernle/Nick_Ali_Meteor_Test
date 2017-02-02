@@ -5,6 +5,7 @@ import { Transactions } from '../../../imports/api/transactions/transactions.js'
 import { insert } from '../../api/transactions/methods.js';
 import { debitBalance } from '../../api/users/methods.js';
 import { creditBalance } from '../../api/users/methods.js';
+import { insertRequest } from '../../api/transactions/methods.js';
 
 export default class TransactionNewPage extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class TransactionNewPage extends React.Component {
     const errors = {};
     const toUserId = 'u2Ti4634Wf3pwFXTa';
     const toUserName = 'Nick';
+    const description = 'birthday';
 
     try{
       insert.call({
@@ -49,6 +51,27 @@ export default class TransactionNewPage extends React.Component {
     const errors = {};
     const toUserId = 'u2Ti4634Wf3pwFXTa';
     const toUserName = 'Nick';
+    const description = 'birthday';
+
+    try{
+      insertRequest.call({
+        fromUserId: Meteor.userId(),
+        toUserId: toUserId,
+        fromUserName: Meteor.user().profile.name,
+        toUserName: toUserName,
+        amount: parseFloat(amount),
+        reason: description
+      }, (err) => {
+        if (err) {
+          router.push('/');
+          alert('Could not complete transaction.');
+        }
+      });
+    } catch(err) {
+      console.log('Something horrible happened')
+    }
+
+    this.context.router.push('/transaction');
   }
 
   render() {

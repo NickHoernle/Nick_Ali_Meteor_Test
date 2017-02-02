@@ -43,6 +43,28 @@ export const insert = new ValidatedMethod({
   }
 });
 
+export const insertRequest = new ValidatedMethod({
+  name: 'Transactions.methods.insertRequest',
+  validate: null,
+  run({ fromUserId, toUserId, fromUserName, toUserName, amount, reason }) {
+    request = {
+      fromUserId: fromUserId,
+      toUserId: toUserId,
+      fromUserName: fromUserName,
+      toUserName: toUserName,
+      amount: amount,
+      timestamp: (new Date()).getTime(),
+      reason: reason
+    }
+
+    /**
+    Some fancy logic is going to have to go here to notify the next person that you
+    are requesting a transaction
+    **/
+    console.log('Well done Ali. Now you would need to save that to a database so that it shows up that you have requested a transaction')
+
+    //return Transactions.insert(request);
+  }});
 // export const makePrivate = new ValidatedMethod({
 //   name: 'Lists.methods.makePrivate',
 //   validate: LIST_ID_ONLY,
