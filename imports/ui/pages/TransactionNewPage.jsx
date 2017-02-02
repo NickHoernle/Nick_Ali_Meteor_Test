@@ -54,7 +54,6 @@ export default class TransactionNewPage extends React.Component {
     const description = 'birthday';
 
     try{
-      debugger
       insertRequest.call({
         fromUserId: Meteor.userId(),
         toUserId: toUserId,
@@ -63,11 +62,16 @@ export default class TransactionNewPage extends React.Component {
         amount: parseFloat(amount),
         reason: description
       }, (err) => {
-        console.log('error', err)
+        if (err) {
+          router.push('/');
+          alert('Could not complete transaction.');
+        }
       });
     } catch(err) {
       console.log('Something horrible happened')
     }
+
+    this.context.router.push('/transaction');
   }
 
   render() {

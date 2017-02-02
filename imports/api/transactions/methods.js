@@ -57,6 +57,12 @@ export const insertRequest = new ValidatedMethod({
       reason: reason
     }
 
+    /**
+    Some fancy logic is going to have to go here to notify the next person that you
+    are requesting a transaction
+    **/
+    console.log('Well done Ali. Now you would need to save that to a database so that it shows up that you have requested a transaction')
+
     //return Transactions.insert(request);
   }});
 // export const makePrivate = new ValidatedMethod({
